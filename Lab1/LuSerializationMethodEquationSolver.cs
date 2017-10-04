@@ -10,6 +10,7 @@ namespace Lab1
         {
             var A = Matrix.Build.DenseOfRows(rowsOfEquationWithRightPart);
             
+            
             throw new NotImplementedException();
         }
     }

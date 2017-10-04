@@ -20,7 +20,7 @@ namespace NumercMethods
             var n = ReadNumberOfRows();
             var equationRows = ReadEquationRows(n);
             
-            var result = _equationSystemSolver.Solve(equationRows, 7, 1.5);
+            var result = _equationSystemSolver.Solve(equationRows, 8, 1E-3);
 
             WriteVectorAsRoots(result);
         }
