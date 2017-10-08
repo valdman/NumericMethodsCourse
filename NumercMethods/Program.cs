@@ -12,7 +12,7 @@ namespace NumercMethods
             var serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddSingleton<Worker>()
-                .AddSingleton<IEquationSystemSolver, LuDecomposionMethodEquationSolver>()
+                .AddSingleton<IEquationSystemSolver, QrDecompositionMethodEquationSolver>()
                 .BuildServiceProvider();
 
             serviceProvider
