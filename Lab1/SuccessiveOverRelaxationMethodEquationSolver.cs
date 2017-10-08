@@ -11,7 +11,8 @@ namespace Lab1
         public IEnumerable<double> Solve(IEnumerable<double[]> rowsOfEquationWithRightPart, params double[] @params)
         {
             var equationMatrix = DenseMatrix.OfRows(rowsOfEquationWithRightPart);
-            var preparedMatrix = PrepareMatrixForRelaxation(equationMatrix);
+            var preparedMatrix = equationMatrix.PrepareMatrixForIterations();
+            LogMatrix(preparedMatrix);
             
             var rightPart = preparedMatrix.Column(equationMatrix.ColumnCount - 1);
             
@@ -33,30 +34,11 @@ namespace Lab1
                     delta = (rightPart[i] - delta) / preparedMatrix[i, i];
                     rightPart [i] += relaxation * (delta - rightPart [i]);
                 }
-                LogVector(rightPart);
             }
 
             return rightPart;
         }
 
-        private Matrix PrepareMatrixForRelaxation(Matrix equationMatrix)
-        {
-            var preparedMatrix = equationMatrix.Clone();
-            
-            for (var i = 0; i < equationMatrix.RowCount; i++)
-            {
-                for (var j = 0; j < equationMatrix.ColumnCount - 1; j++)
-                {
-                    preparedMatrix[i, j] /=  -equationMatrix[i, i];
-                }
-
-                preparedMatrix[i, equationMatrix.ColumnCount - 1] /= equationMatrix[i, i];
-            }
-
-            //LogMatrix();
-            return preparedMatrix as Matrix;
-        }
-        
         private void LogMatrix(Matrix preparedMatrix)
         {
             Console.WriteLine();

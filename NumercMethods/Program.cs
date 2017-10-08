@@ -12,7 +12,7 @@ namespace NumercMethods
             var serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddSingleton<Worker>()
-                .AddSingleton<IEquationSystemSolver, SuccessiveOverRelaxationMethodEquationSolver>()
+                .AddSingleton<IEquationSystemSolver, JacobiMethodEquationSolver>()
                 .BuildServiceProvider();
 
             serviceProvider

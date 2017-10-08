@@ -17,10 +17,16 @@ namespace NumercMethods
 
         public void Job()
         {
-            var n = ReadNumberOfRows();
-            var equationRows = ReadEquationRows(n);
+            //var n = ReadNumberOfRows();
+            //var equationRows = ReadEquationRows(n);
+            var equationRows = new[]
+            {
+                new[] {1.0, 2, 3, 5},
+                new[] {1.0, -1, 1, 0},
+                new[] {1.0, -2, -3, 2}
+            };
             
-            var result = _equationSystemSolver.Solve(equationRows, 8, 1E-3);
+            var result = _equationSystemSolver.Solve(equationRows, 100, 1E-6);
 
             WriteVectorAsRoots(result);
         }
