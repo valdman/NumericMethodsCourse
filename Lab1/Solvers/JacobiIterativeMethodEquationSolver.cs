@@ -5,7 +5,7 @@ using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace Lab1.Solvers
 {
-    public class JacobiIterativeMethodEquationSolver : IEquationSystemSolver
+    public class JacobIIterativeMethodEquationSolver : IEquationSystemSolver
     {
         public IEnumerable<double> Solve(IEnumerable<double[]> rowsOfEquationWithRightPart, params double[] @params)
         {

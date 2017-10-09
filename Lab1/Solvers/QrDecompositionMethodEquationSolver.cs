@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lab1.QrHelpers;
 using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace Lab1.Solvers
@@ -9,16 +10,14 @@ namespace Lab1.Solvers
         public IEnumerable<double> Solve(IEnumerable<double[]> rowsOfEquationWithRightPart, params double[] @params)
         {
             var equationMatrix = DenseMatrix.OfRows(rowsOfEquationWithRightPart);
-            var solver = new QrDecomposer(equationMatrix);
-
-            var (q, r) = (solver.OrthogonalFactor, solver.UpperTriangularFactor);
-
-            if (Equals(q * r, equationMatrix))
-            {
-                Console.WriteLine("QR decomposing works");
-            }
             
-            throw new NotImplementedException();
+            var n = equationMatrix.ColumnCount - 1;
+            var rightPart = equationMatrix.Column(n);
+            var leftPart = equationMatrix.RemoveColumn(n);
+                
+            var qr = QrDecomposition.Create(leftPart);
+
+            return qr.Solve(rightPart);
         }
     }
 }
