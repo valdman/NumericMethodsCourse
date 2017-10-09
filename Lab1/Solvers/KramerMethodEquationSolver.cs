@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MathNet.Numerics.LinearAlgebra.Double;
 
-namespace Lab1
+namespace Lab1.Solvers
 {
     public class KramerMethodEquationSolver : IEquationSystemSolver
     {

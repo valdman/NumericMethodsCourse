@@ -19,14 +19,20 @@ namespace NumercMethods
         {
             //var n = ReadNumberOfRows();
             //var equationRows = ReadEquationRows(n);
-            var equationRows = new[]
+            var oldEquationRows = new[]
             {
                 new[] {1.0, 2, 3, 5},
                 new[] {1.0, -1, 1, 0},
                 new[] {1.0, -2, -3, 2}
             };
+
+            var equationRows = new[]
+            {
+                new double[] {10, 1, 12},
+                new double[] {1, 10, 21}
+            };
             
-            var result = _equationSystemSolver.Solve(equationRows, 100, 1E-6);
+            var result = _equationSystemSolver.Solve(equationRows, 4, 1E-6);
 
             WriteVectorAsRoots(result);
         }

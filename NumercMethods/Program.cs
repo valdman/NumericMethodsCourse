@@ -1,4 +1,5 @@
 ﻿using Lab1;
+using Lab1.Solvers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -12,7 +13,7 @@ namespace NumercMethods
             var serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddSingleton<Worker>()
-                .AddSingleton<IEquationSystemSolver, QrDecompositionMethodEquationSolver>()
+                .AddSingleton<IEquationSystemSolver, JacobiIterativeMethodEquationSolver>()
                 .BuildServiceProvider();
 
             serviceProvider

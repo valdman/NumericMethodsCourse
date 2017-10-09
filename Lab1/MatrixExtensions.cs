@@ -24,7 +24,7 @@ namespace Lab1
             return preparedMatrix as Matrix;
         }
 
-        public static (Matrix L, Matrix U) LuSerialize(this Matrix<double> equationMatrix)
+        public static (Matrix L, Matrix U) LuDecompose(this Matrix<double> equationMatrix)
         {
             var n = equationMatrix.RowCount;
             var m = equationMatrix.ColumnCount;
@@ -62,6 +62,29 @@ namespace Lab1
             }
             
             return (l, u);
+        }
+
+        public static (Matrix D, Matrix L, Matrix U) DluDecompose(this Matrix<double> leftPart)
+        {
+            var d = new DenseMatrix(leftPart.RowCount, leftPart.ColumnCount);
+            var l = d.Clone();
+            var u = d.Clone();
+            
+            for (var i = 0; i < leftPart.RowCount; i++)
+            {
+                for (var j = 0; j < leftPart.ColumnCount; j++)
+                {
+                    var a = i - j;
+                    if (a > 0)
+                        u[i, j] = leftPart[i, j];
+                    if (a == 0)
+                        d[i, j] = leftPart[i, j];
+                    else
+                        l[i, j] = leftPart[i, j];
+                }
+            }
+
+            return ((Matrix D, Matrix L, Matrix U)) (d, l, u);
         }
     }
 }

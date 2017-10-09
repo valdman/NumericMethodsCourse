@@ -4,7 +4,7 @@ using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 using Matrix = MathNet.Numerics.LinearAlgebra.Double.Matrix;
 
-namespace Lab1
+namespace Lab1.Solvers
 {
     public class SuccessiveOverRelaxationMethodEquationSolver : IEquationSystemSolver
     {

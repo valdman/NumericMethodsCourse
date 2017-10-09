@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MathNet.Numerics.LinearAlgebra.Double;
 
-namespace Lab1
+namespace Lab1.Solvers
 {
     public class LuDecomposionMethodEquationSolver : IEquationSystemSolver
     {
@@ -13,7 +13,7 @@ namespace Lab1
             var rightPart = equationMatrix.Column(n);
             var leftMatrix = equationMatrix.RemoveColumn(n);
 
-            var (l, u) = leftMatrix.LuSerialize();
+            var (l, u) = leftMatrix.LuDecompose();
             var y = new double[n];
             var x = new double[n];
 
