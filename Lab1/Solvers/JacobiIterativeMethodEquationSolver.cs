@@ -19,7 +19,8 @@ namespace Lab1.Solvers
 
             if (!TestConvergenceForJacobi(leftMatrix)) throw new ArgumentException("Method does not converge on this matrix");
 
-            var x = rightPart.Clone();
+            var x = new double[n];
+            var y = new double[n];
 
             var iterations = (int) @params[0];
 
@@ -33,8 +34,13 @@ namespace Lab1.Solvers
                         if(j == i) continue;
                         sum += leftMatrix[i, j] * x[j];
                     }
+                    /*
+                     * Using this we will get Gauss-Zeidel method
                     x[i] = (rightPart[i] - sum) / leftMatrix[i, i];
+                    */
+                    y[i] = (rightPart[i] - sum) / leftMatrix[i, i];
                 }
+                x = y;
             }
 
             return x;

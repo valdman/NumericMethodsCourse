@@ -13,7 +13,7 @@ namespace NumercMethods
             var serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddSingleton<Worker>()
-                .AddSingleton<IEquationSystemSolver, JacobiIterativeMethodEquationSolver>()
+                .AddSingleton<IEquationSystemSolver, KramerMethodEquationSolver>()
                 .BuildServiceProvider();
 
             serviceProvider
