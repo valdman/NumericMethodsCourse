@@ -19,8 +19,8 @@ namespace Lab1.QrHelpers
             {
                 if (this.FullR.RowCount != this.FullR.ColumnCount)
                     throw new ArgumentException(Resources.ArgumentMatrixSquare);
-                double num = 1.0;
-                for (int index = 0; index < this.FullR.ColumnCount; ++index)
+                var num = 1.0;
+                for (var index = 0; index < this.FullR.ColumnCount; ++index)
                 {
                     num *= this.FullR.At(index, index);
                     if (Math.Abs(this.FullR.At(index, index)).AlmostEqual(0.0))
@@ -34,7 +34,7 @@ namespace Lab1.QrHelpers
         {
             get
             {
-                for (int index = 0; index < this.FullR.ColumnCount; ++index)
+                for (var index = 0; index < this.FullR.ColumnCount; ++index)
                 {
                     if (Math.Abs(this.FullR.At(index, index)).AlmostEqual(0.0))
                         return false;

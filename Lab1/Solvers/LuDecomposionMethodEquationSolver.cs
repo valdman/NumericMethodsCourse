@@ -17,20 +17,20 @@ namespace Lab1.Solvers
             var y = new double[n];
             var x = new double[n];
 
-            for (int i = 0; i < n; i++)
+            for (var i = 0; i < n; i++)
             {
                 var sumForX = 0.0;
-                for (int j = 0; j < i; j++)
+                for (var j = 0; j < i; j++)
                 {
                     sumForX += l[i, j] * y[j];
                 }
                 y[i] = (rightPart[i] - sumForX) / l[i, i];
             }
 
-            for (int i = n - 1; i >= 0; i--)
+            for (var i = n - 1; i >= 0; i--)
             {
                 var sumForY = 0.0;
-                for (int j = n - 1; j > i; j--)
+                for (var j = n - 1; j > i; j--)
                 {
                     sumForY += u[i, j] * x[j];
                 }
