@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 using Matrix = MathNet.Numerics.LinearAlgebra.Double.Matrix;
@@ -9,34 +10,44 @@ namespace Lab1.Solvers
     public class SuccessiveOverRelaxationMethodEquationSolver : IEquationSystemSolver
     {
         public IEnumerable<double> Solve(IEnumerable<double[]> rowsOfEquationWithRightPart, params double[] @params)
-        {
+        {      
+            var relaxationCoefficient = @params[0];
+            var eps = @params[1];
+            
             var equationMatrix = DenseMatrix.OfRows(rowsOfEquationWithRightPart);
-            var preparedMatrix = equationMatrix.PrepareMatrixForIterations();
-            LogMatrix(preparedMatrix);
             
-            var rightPart = preparedMatrix.Column(equationMatrix.ColumnCount - 1);
+            var b = equationMatrix.Column(equationMatrix.ColumnCount - 1);
+            var a = equationMatrix.RemoveColumn(equationMatrix.ColumnCount - 1);
             
-            var iterations = (int) @params[0];
-            var relaxation = @params[1];
+            var n = a.RowCount;
+            
+            var cur = b.Clone();
 
-            // Gauss-Seidel with Successive OverRelaxation Solver
-            for (var k = 0; k < iterations; ++k) 
+            int counter = 0;
+            
+            while (true)
             {
-                for (var i = 0; i < rightPart.Count; ++i)
-                {
-                    var delta = rightPart.AbsoluteMaximum();
-
-                    for (var j = 0; j < i; ++j)
-                        delta += preparedMatrix[i, j] * rightPart[j];
-                    for (var j = i + 1; j < rightPart.Count; ++j)
-                        delta += preparedMatrix [i, j] * rightPart [j];
-
-                    delta = (rightPart[i] - delta) / preparedMatrix[i, i];
-                    rightPart [i] += relaxation * (delta - rightPart [i]);
+                counter++;
+                var old = cur.Clone();
+                for (int i = 0;i < n; ++i) {
+                    double sum = 0;
+                    for (int j = 0; j < n; ++j) 
+                    {
+                        if (j == i) continue;
+                        sum -= (a[i, j] * cur[j]);
+                    }
+                    sum += b[i];
+                    sum *= (relaxationCoefficient / a[i, i]);
+                    cur[i] = sum+(1.0 - relaxationCoefficient)*cur[i];
                 }
+                double mx = Math.Abs(cur[0] - old[0]);
+                for (int i = 0; i < n; ++i) {
+                    mx = Math.Max(Math.Abs(cur[i] - old[i]), mx);
+                }
+                if (mx < eps) break;
             }
-
-            return rightPart;
+            Console.WriteLine(counter);
+            return cur;
         }
 
         private void LogMatrix(Matrix preparedMatrix)

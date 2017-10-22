@@ -17,30 +17,20 @@ namespace Lab1.Solvers
 
             if(leftMatrix.RowCount != leftMatrix.ColumnCount) throw new ArgumentException("For Simple Jacobi method matrix must be square");
 
-            if (!TestConvergenceForJacobi(leftMatrix)) throw new ArgumentException("Method does not converge on this matrix");
+            //if (!TestConvergenceForJacobi(leftMatrix)) throw new ArgumentException("Method does not converge on this matrix");
 
-            var x = new double[n];
-            var y = new double[n];
+            var (d, l, u) = leftMatrix.DluDecompose();
+            var b = d.Inverse() * (d - leftMatrix);
+            var g = d.Inverse() * rightPart;
+
+            var x = rightPart.Clone();
 
             var iterations = (int) @params[0];
 
             for (var k = 0; k < iterations; k++)
             {
-                for (var i = 0; i < n; i++)
-                {
-                    var sum = 0.0;
-                    for (var j = 0; j < n; j++)
-                    {
-                        if(j == i) continue;
-                        sum += leftMatrix[i, j] * x[j];
-                    }
-                    /*
-                     * Using this we will get Gauss-Zeidel method
-                    x[i] = (rightPart[i] - sum) / leftMatrix[i, i];
-                    */
-                    y[i] = (rightPart[i] - sum) / leftMatrix[i, i];
-                }
-                x = y;
+                var y = b * x + g;
+                x = y.Clone();
             }
 
             return x;

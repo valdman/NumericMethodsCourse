@@ -21,18 +21,19 @@ namespace NumercMethods
             //var equationRows = ReadEquationRows(n);
             var oldEquationRows = new[]
             {
-                new[] {1.0, 2, 3, 5},
-                new[] {1.0, -1, 1, 0},
-                new[] {1.0, -2, -3, 2}
+                new[] {7.0, 1, 2, 2, 1},
+                new[] {0.0, 5, 1, 1, -3},
+                new[] {2.0, 1, 8, 1, 0},
+                new[] {2.0, 2, 1, 6, 4}
             };
 
             var equationRows = new[]
             {
-                new double[] {10, 1, 12},
-                new double[] {1, 10, 21}
+                new double[] {2, 1, 1},
+                new double[] {1, 2, -1}
             };
             
-            var result = _equationSystemSolver.Solve(equationRows, 4, 1E-6);
+            var result = _equationSystemSolver.Solve(oldEquationRows, 1000, 1E-5);
 
             WriteVectorAsRoots(result);
         }
@@ -65,7 +66,7 @@ namespace NumercMethods
             var i = 0;
             foreach (var root in roots)
             {
-                Console.Write($"x{i} = {string.Format("{0:0.00}", root)}; ");
+                Console.Write($"x{i} = {string.Format("{0:0.0000}", root)}; ");
                 ++i;
             }
         }
